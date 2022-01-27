@@ -3,9 +3,15 @@ import axios from 'axios';
 
 const fetchProducts = async() => {
     const {data} = await axios.get('/products')
-    console.log('data:', data)
     return data;
 }
 
-export default fetchProducts;
+const fetchProduct = async(id) => {
+    const {data} = await axios.get(`/products/${id}`)
+    return data;
+}
 
+export const ProductService = {
+    fetchProducts,
+    fetchProduct,
+}

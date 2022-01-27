@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ProductItem from '../../pages/ProductItem';
 
 
-import fetchProducts from '../../services/products';
+import { ProductService } from '../../services/products';
 
 const ProductList = () => {
 
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetchProducts()
+        ProductService.fetchProducts()
             .then(data => setProducts(data))
     }, [])
 
     return (
         <div>
-            {products.map((product , index) => (
-                <h1 key={index}> {product.name}</h1>
+            {products.map((product, index) => (
+                <Link to={`/products/${product._id}` } key={index} >
+                    <h1> {product.name}</h1>
+                </Link>
             ))}
         </div>
     );

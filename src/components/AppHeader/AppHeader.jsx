@@ -4,12 +4,11 @@ import styled from 'styled-components';
 const HeaderStyled = styled.header`
     width: 100%;
     height: 70px;
-    background-color: hotpink;
-
+    
     .wrapper {
         width: 80%;
         height: 100%;
-        background-color: black;
+        background-color: hotpink;
         margin: 0 auto;
     }
 `;
@@ -17,7 +16,14 @@ const HeaderStyled = styled.header`
 const AppHeader = () => {
     return (
         <HeaderStyled>
-            <div className="wrapper"></div>
+            <div className="wrapper">
+                <div>LOGO</div>
+                <ul style={{display: 'flex'}}>
+                    <li>about</li>
+                    <li>service</li>
+                    <li>product</li>
+                </ul>
+            </div>
         </HeaderStyled>
     );
 };

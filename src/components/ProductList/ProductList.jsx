@@ -18,7 +18,7 @@ const ProductList = () => {
         <div>
             {products.map((product, index) => (
                 <Link to={`/products/${product._id}` } key={index} >
-                    <h1> {product.name}</h1>
+                    <h1> {product.title}</h1>
                 </Link>
             ))}
         </div>

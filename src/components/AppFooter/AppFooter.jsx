@@ -5,6 +5,7 @@ const FooterStyled = styled.footer`
     width: 100%;
     height: 140px;
     display: flex;
+    text-align: center;
     
     .wrapper {
         background-color: hotpink;

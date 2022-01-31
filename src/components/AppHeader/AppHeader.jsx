@@ -10,6 +10,13 @@ const HeaderStyled = styled.header`
         height: 100%;
         background-color: hotpink;
         margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        li {
+            margin-right: 20px;
+        }
     }
 `;
 

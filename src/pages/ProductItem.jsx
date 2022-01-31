@@ -17,7 +17,7 @@ const ProductItem = () => {
     return (
         <div>
             <h1>
-                {product.name}
+                {product.title}
             </h1>
 
             <Link to={'/'}>

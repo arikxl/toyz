@@ -18,7 +18,7 @@ const ProductItemStyled = styled.section`
 `;
 
 const ProductItem = () => {
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(44);
     const id = useParams().id;
     const navigate = useNavigate();
     const dispatch = useDispatch();

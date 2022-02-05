@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Error from '../Loaders/Error';
-import { listProduct } from '../../redux/actions/productActions';
 import Loader from '../Loaders/Loader/Loader';
+import { listProduct } from '../../redux/actions/productActions';
 
 const ProductList = () => {
 

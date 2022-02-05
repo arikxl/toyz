@@ -1,25 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ProductService } from '../../services/products';
+import Error from '../Loaders/Error';
+import { listProduct } from '../../redux/actions/productActions';
+import Loader from '../Loaders/Loader/Loader';
 
 const ProductList = () => {
 
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        ProductService.fetchProducts()
-            .then(data => setProducts(data))
-    }, [])
+        dispatch(listProduct)
+    }, [dispatch])
+
+    const productsFromStore = useSelector((state) => state.productList)
+    const { error, loading, products } = productsFromStore;
 
     return (
         <div>
-            {products.length === 0 && 'LOADING...'}
-            {products.map((product, index) => (
-                <Link to={`/products/${product._id}` } key={index} >
-                    <h1> {product.title}</h1>
-                </Link>
-            ))}
+            {loading ? (<div style={{ position: 'relative' }}><Loader /></div>)
+                : error ? (<Error message={error} />)
+                    : (
+                        <>
+                            {products.map((product, index) => (
+                                <Link to={`/products/${product._id}`} key={index}>
+                                    <h1> {product.title}</h1>
+                                </Link>
+                            ))}
+                        </>
+                    )
+            }
         </div>
     );
 };

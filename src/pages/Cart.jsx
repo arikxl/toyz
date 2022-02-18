@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useParams, useLocation } from 'react-router-dom';
+
 import { addToCart } from '../redux/actions/cartActions';
 
 
 const Cart = () => {
-
+    window.scroll(0,0);
     const id = useParams().id;
+    console.log('id:', id)
     const location = useLocation();
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
     const dispatch = useDispatch();

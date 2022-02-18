@@ -57,7 +57,8 @@ const ProductItem = () => {
                             {stock > 0 && (
                                 <div style={{ border: '1px solid hotpink' }}>
                                     <h6>Quantity</h6>
-                                    <select>
+                                    <select value={quantity}
+                                        onChange={(e) => setQuantity(e.target.value)}>
                                         {[...Array(stock).keys()].map((index) => (
                                             <option key={index} value={index + 1}>
                                                 {index + 1}

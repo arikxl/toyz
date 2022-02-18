@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import Error from '../components/Loaders/Error';
 
-import { addToCart } from '../redux/actions/cartActions';
+import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
 
 const Cart = () => {
@@ -25,8 +25,8 @@ const Cart = () => {
         }
     }, [dispatch, id, qty])
 
-    const removeFromCart = (product) => {
-
+    const HandleRemoveFromCart = (id) => {
+        dispatch(removeFromCart(id))
     }
 
     const handleCheckOut = () => {
@@ -60,7 +60,7 @@ const Cart = () => {
 
                         <div className="" key={index} style={{ display: 'flex' }}>
                             <button
-                                onClick={() => removeFromCart(item.product)}>
+                                onClick={() => HandleRemoveFromCart(item.product)}>
                                 X
                             </button>
                             <div className="">

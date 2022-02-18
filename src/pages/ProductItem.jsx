@@ -18,13 +18,13 @@ const ProductItemStyled = styled.section`
 `;
 
 const ProductItem = () => {
-    const [quantity, setQuantity] = useState(44);
     const id = useParams().id;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const productItemFromStore = useSelector((state) => state.productItem)
     const { error, loading, product } = productItemFromStore;
     const { _id, img, title, price, stock, rating, reviewsCount } = product;
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         dispatch(singleProduct(id))
@@ -41,20 +41,20 @@ const ProductItem = () => {
             {loading ? (<Loader />)
                 : error ? (<Error message={error} />)
                     : (
-                        <>
+                        <div>
                             <h1>
                                 id:{_id}
                                 <br />
                                 {title}
                             </h1>
-                            <p>{price}</p>
+                            <p>price: ${price}</p>
                             {stock > 0 ? (
                                 <p>stock:{stock}</p>) : (<p>OUT OF STOCK</p>)
                             }
                             <Rating rating={rating} reviewsCount={reviewsCount} />
 
 
-                            {stock > 0 ? (
+                            {stock > 0 && (
                                 <div style={{ border: '1px solid hotpink' }}>
                                     <h6>Quantity</h6>
                                     <select>
@@ -68,17 +68,16 @@ const ProductItem = () => {
                                         add2cart
                                     </button>
                                 </div>
-                            ) : null
-                            }
+                            )}
 
 
                             <img src={img} alt="" />
-
+                            <br />
 
                             <Link to={'/'}>
                                 <button>🏠</button>
                             </Link>
-                        </>
+                        </div>
                     )}
         </ProductItemStyled>
     );

@@ -6,11 +6,11 @@ import styled from 'styled-components';
 const HeaderStyled = styled.header`
     width: 100%;
     height: 70px;
+    background-color: hotpink;
     
     .wrapper {
         width: 80%;
         height: 100%;
-        background-color: hotpink;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;

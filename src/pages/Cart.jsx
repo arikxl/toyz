@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import Error from '../components/Loaders/Error';
@@ -7,18 +7,19 @@ import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
 
 const Cart = () => {
-    window.scroll(0, 0);
+    // window.scroll(0, 0);
     const id = useParams().id;
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
-    const dispatch = useDispatch();
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
 
     const total = cartItems.reduce((total, item) =>
-        total + item.qty * item.price, 0).toLocaleString();
+    total + item.qty * item.price, 0).toLocaleString();
+
     useEffect(() => {
         if (id) {
             dispatch(addToCart(id, qty))
@@ -31,16 +32,11 @@ const Cart = () => {
 
     const handleCheckOut = () => {
         navigate(`/login?redirect=shipping`);
-
     }
 
     return (
 
         <>
-
-            <Link to={'/'}>
-                <button>🏠</button>
-            </Link>
             {cartItems.length === 0 ? (
                 <div style={{ background: 'orange' }}>
                     <Error message={'Your Cart Is Empty'} />

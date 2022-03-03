@@ -6,9 +6,9 @@ const FooterStyled = styled.footer`
     height: 140px;
     display: flex;
     text-align: center;
+    background-color: hotpink;
     
     .wrapper {
-        background-color: hotpink;
         margin: 0 auto;
         width: 80%;
     }

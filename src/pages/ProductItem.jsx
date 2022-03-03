@@ -33,7 +33,6 @@ const ProductItem = () => {
     const handleAddToCart = (e) => {
         e.preventDefault();
         navigate(`/cart/${id}?qty=${quantity}`);
-        console.log(quantity)
     }
 
     return (

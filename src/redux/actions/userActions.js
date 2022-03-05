@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { USER_LOGIN_FAIL,
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOGIN_FAIL,
         USER_LOGIN_REQUEST,
         USER_LOGIN_SUCCESS,
         USER_LOGOUT,
@@ -38,13 +38,12 @@ export const login = (email, password) => async (dispatch) => {
     };
 };
 
-
 // LOGOUT
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
 
     dispatch({type: USER_LOGOUT});
-        // document.location.href= '/login';
+        document.location.href= '/login';
 };
 
 // REGISTER
@@ -56,7 +55,7 @@ export const register = (name, email, password) => async (dispatch) => {
             headers : {
                 "content-type": "application/json"
             }
-        }
+        };
         
         const {data} = await axios.post(`/users`,
         {name, email, password}, config);
@@ -72,5 +71,38 @@ export const register = (name, email, password) => async (dispatch) => {
                 ? error.response.data.message
                 : error.message
             });
+    };
+};
+
+// DETAILS
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({type : USER_DETAILS_REQUEST});
+        const {
+            userLogin : { userInfo },
+        } = getState();
+
+        const config = {
+            headers : {
+                Authorization: `Bearer ${userInfo.token}`,
+            }
+        };
+        
+        const {data} = await axios.get(`/users/${id}`, config);
+ 
+        dispatch({type : USER_DETAILS_SUCCESS, payload : data});
+
+    } catch (error) {
+        const message = error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+
+        if(message === "Not authorized, no token") {
+            dispatch(logout())
+        }
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload : message
+        });
     };
 };

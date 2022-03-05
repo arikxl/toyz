@@ -37,9 +37,9 @@ const AppHeader = () => {
     const { cartItems } = cart;
     const user = useSelector((state) => state.userLogin).userInfo;
 
-    const handleLogout =() => {
+    const handleLogout = () => {
         // eslint-disable-next-line no-restricted-globals
-        if(confirm('Are you sure you want to log out?')){
+        if (confirm('Are you sure you want to log out?')) {
             dispatch(logout());
         } else return;
     }
@@ -50,10 +50,12 @@ const AppHeader = () => {
                 <Link to={'/'}>
                     <div>LOGO</div>
                 </Link>
-                
+
                 {user ? (
                     <UserStyled>
-                        <img src={`https://avatars.dicebear.com/api/bottts/${user.name}.svg`} alt="" />
+                        <Link to='/profile'>
+                            <img src={`https://avatars.dicebear.com/api/bottts/${user.name}.svg`} alt="" />
+                        </Link>
                         <h3>{user.name}</h3>
                         <button onClick={handleLogout}>logout</button>
                     </UserStyled>

@@ -1,9 +1,7 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import Error from '../components/Loaders/Error';
 import Loader from '../components/Loaders/Loader/Loader';
 import { register } from '../redux/actions/userActions';
@@ -31,9 +29,6 @@ const Register = () => {
         dispatch(register(name, email, password))
     }
 
-
-
-
     return (
         <div>
             <Link to={'/'}>
@@ -47,15 +42,14 @@ const Register = () => {
                 <input type="text" placeholder='Name' name="name"
                     value={name} onChange={(e) => setName(e.target.value)} />
                 <br />
-                <input type="text" placeholder='Email' name="email"
+                <input type="email" placeholder='Email' name="email"
                     value={email} onChange={(e) => setEmail(e.target.value)} />
                 <br />
-                <input type="text" placeholder="Password" name="password"
+                <input type="password" placeholder="Password" name="password"
                     value={password} onChange={(e) => setPassword(e.target.value)} />
                 <br />
-                <button>LOGIN</button>
+                <button>Register</button>
             </form>
-
 
             <p>
                 <Link to={redirect
@@ -65,7 +59,7 @@ const Register = () => {
                 </Link>
             </p>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;

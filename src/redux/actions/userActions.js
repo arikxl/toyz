@@ -1,12 +1,19 @@
 import axios from 'axios';
 
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOGIN_FAIL,
+import { USER_DETAILS_FAIL,
+        USER_DETAILS_REQUEST,
+        USER_DETAILS_RESET,
+        USER_DETAILS_SUCCESS, 
+        USER_LOGIN_FAIL,
         USER_LOGIN_REQUEST,
         USER_LOGIN_SUCCESS,
         USER_LOGOUT,
         USER_REGISTER_FAIL,
         USER_REGISTER_REQUEST,
-        USER_REGISTER_SUCCESS
+        USER_REGISTER_SUCCESS,
+        USER_UPDATE_PROFILE_FAIL,
+        USER_UPDATE_PROFILE_REQUEST,
+        USER_UPDATE_PROFILE_SUCCESS
 } from "../constants/userConstants";
 
 
@@ -43,7 +50,9 @@ export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
 
     dispatch({type: USER_LOGOUT});
-        document.location.href= '/login';
+    dispatch({type: USER_DETAILS_RESET});
+
+    document.location.href= '/login';
 };
 
 // REGISTER
@@ -106,3 +115,42 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         });
     };
 };
+
+
+// UPDATE PROFILE
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+    console.log('user:', user)
+    try {
+        dispatch({type : USER_UPDATE_PROFILE_REQUEST});
+        const {
+            userLogin : { userInfo },
+        } = getState();
+        console.log('userInfo:', userInfo)
+
+        const config = {
+            headers : {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            }
+        };
+        
+        const {data} = await axios.put(`/users/profile`, user, config);
+        dispatch({type : USER_UPDATE_PROFILE_SUCCESS, payload : data});
+        dispatch({type : USER_LOGIN_SUCCESS, payload : data});
+
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+        const message = error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+
+        if(message === "Not authorized, no token") {
+            dispatch(logout())
+        }
+        dispatch({
+            type: USER_UPDATE_PROFILE_FAIL,
+            payload : message
+        });
+    };
+}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../redux/actions/userActions';
+import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
 import moment from 'moment';
+import Loader from '../components/Loaders/Loader/Loader.jsx'
 
 
 
@@ -10,18 +11,22 @@ const UserProfile = () => {
 
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin).userInfo;
+
+
     const userDetails = useSelector((state) => state.userDetails);
-    // console.log('userDetails:', userDetails)
-    const { loading, user } = userDetails;
+    const { error, loading, user } = userDetails;
+
+    const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
+    const { loading: updateLoading } = userProfileUpdate;
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    // useEffect(() => {
-    //     dispatch(getUserDetails('profile'))
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(getUserDetails('profile'))
+    }, [dispatch])
 
     useEffect(() => {
         if (user) {
@@ -36,7 +41,12 @@ const UserProfile = () => {
             alert('Passwords do not match');
         } else {
             alert('Passwords match');
-
+            dispatch(updateUserProfile({
+                id: user._id,
+                name,
+                email, 
+                password
+            }))
         }
     }
 
@@ -45,7 +55,7 @@ const UserProfile = () => {
             <div>Shalom {userLogin.name}</div>
             <h3>joined: {moment(userLogin.createdAt).format('DD/MM/YY')}</h3>
             <h3>email: {userLogin.email}</h3>
-
+            {updateLoading && <Loader />}
             <form onSubmit={handleSubmit} >
                 <input type="text" placeholder='UserName' name="name" required
                     value={name} onChange={(e) => setName(e.target.value)} />

@@ -37,10 +37,10 @@ const Login = () => {
       {loading && <Loader />}
 
       <form onSubmit={handleSubmit} >
-        <input type="text" placeholder='email'
+        <input type="text" placeholder='Email' name="email"
           value={email} onChange={(e) => setEmail(e.target.value)} />
         <br />
-        <input type="text" placeholder="password"
+        <input type="text" placeholder="Password" name="password"
           value={password} onChange={(e) => setPassword(e.target.value)} />
         <br />
         <button>LOGIN</button>

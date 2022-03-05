@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -16,22 +17,24 @@ const UserStyled = styled.section`
 
 const Home = () => {
 
-  const user = useSelector((state) => state.userLogin);
-  const {_id, name, email, isAdmin, } = user.userInfo
-
-  const imgUrl = `https://avatars.dicebear.com/api/bottts/${name}.svg`
+  const user = useSelector((state) => state.userLogin).userInfo;
 
   return (
-    <div>
-      {user.userInfo ? (
+    <>
+      {user ? (
         <UserStyled>
-        <img src={imgUrl} alt="" />
-        <h1>{name}</h1>
+          <img src={`https://avatars.dicebear.com/api/bottts/${user.name}.svg`} alt="" />
+          <h1>{user.name}</h1>
         </UserStyled>
-      ) : ''
-      }
-      <ProductList />      
-    </div>
+      ) : (
+        <Link to='/login'>
+          <button>login</button>
+        </Link>
+      )}
+
+      <ProductList />
+    </>
+
 
   );
 };

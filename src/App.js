@@ -10,6 +10,8 @@ import AppFooter from './components/AppFooter/AppFooter';
 import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
 import Shipping from './pages/Shipping';
+import Payment from './pages/Payment';
+import Order from './pages/Order';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<UserProfile/>} />
           <Route path="/shipping" element={<Shipping/>} />
+          <Route path="/payment" element={<Payment/>} />
+          <Route path="/order" element={<Order/>} />
       </Routes>
       <AppFooter />
     </BrowserRouter>

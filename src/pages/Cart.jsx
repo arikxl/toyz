@@ -18,7 +18,7 @@ const Cart = () => {
     const { cartItems } = cart;
 
     const total = cartItems.reduce((total, item) =>
-    total + item.qty * item.price, 0).toLocaleString();
+        total + item.qty * item.price, 0).toLocaleString();
 
     useEffect(() => {
         if (id) {
@@ -75,7 +75,7 @@ const Cart = () => {
                                         dispatch(addToCart(item.product,
                                             Number(e.target.value)))}>
                                     {[...Array(item.stock).keys()].map((x) => (
-                                        <option key={x+1} value={x + 1}>
+                                        <option key={x + 1} value={x + 1}>
                                             {x + 1}
                                         </option>
                                     ))}
@@ -98,12 +98,14 @@ const Cart = () => {
                     </div>
                     <hr />
                     <div className="cart-buttons d-flex align-items-center row">
-                        <Link to="/" className="col-md-6 ">
+                        <Link to="/" className="">
                             <button>Continue To Shopping</button>
                         </Link>
                         {total > 0 && (
                             <div >
-                                <button onClick={handleCheckOut}>Checkout</button>
+                                <Link to="/shipping" className="">
+                                    <button onClick={handleCheckOut}>Checkout</button>
+                                </Link>
                             </div>
                         )}
                     </div>

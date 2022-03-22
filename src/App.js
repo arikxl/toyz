@@ -9,6 +9,7 @@ import AppHeader from './components/AppHeader/AppHeader';
 import AppFooter from './components/AppFooter/AppFooter';
 import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
+import Shipping from './pages/Shipping';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<UserProfile/>} />
+          <Route path="/shipping" element={<Shipping/>} />
       </Routes>
       <AppFooter />
     </BrowserRouter>

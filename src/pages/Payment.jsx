@@ -15,12 +15,16 @@ const Payment = () => {
     navigate('/shipping');
   }
   
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('');
   
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(savePaymentMethod(paymentMethod))
+    if (paymentMethod !== 'PayPal') {
+      alert('Please choose your payment method')
+      return;
+    }; 
+    dispatch(savePaymentMethod(paymentMethod));
     navigate('/order');
   };
 
@@ -30,7 +34,7 @@ const Payment = () => {
       <form onSubmit={handleSubmit} className="flex column w200">
         <h6>select payment method</h6>
         <div>
-          <input type="radio" value={paymentMethod} 
+          <input type="radio" value='PayPal'
           onChange={(e) => setPaymentMethod(e.target.value)}/>
           <label>PayPal</label>
         </div>

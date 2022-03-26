@@ -11,7 +11,7 @@ import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
 import Shipping from './pages/Shipping';
 import Payment from './pages/Payment';
-import Order from './pages/Order';
+import Order from './pages/OrderPage/Order';
 
 function App() {
   return (

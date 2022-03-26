@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import Error from '../../components/Loaders/Error';
 
+import { addDecimals } from '../../utils/utils';
 
 
 const OrderStyled = styled.div`
@@ -27,17 +28,30 @@ const CartStyled = styled.div`
   .cart-items {
     width: 60% ;
     border: 1px solid grey;
+    padding: 10px;
     .cart-item{
+      border: 1px solid grey;
       display: flex ;
+      flex-direction: row ;
+      margin-bottom:10px ;
       img {
         width: 50px;
         height: 50px;
+      }
+      p {
+        padding: 0 15px;
       }
     }
   }
   .order-summary{
     width: 30%;
     border: 1px solid grey;
+    table{
+
+      td{
+        padding-left: 20px ;
+      }
+    }
   }
 `;
 
@@ -50,6 +64,22 @@ const Order = () => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin).userInfo;
 
+  cart.itemsPrice = addDecimals(
+    cart?.cartItems?.reduce((total, item) =>
+      total + item.qty * item.price, 0) / 1.17
+  );
+
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 150 ? 0 : 20);
+  cart.taxPrice = addDecimals(+((0.17 * cart.itemsPrice).toFixed(2)));
+  cart.totalPrice = (
+    +(cart.itemsPrice) + 
+    +(cart.taxPrice) +
+    +(cart.shippingPrice)
+  ).toFixed(2);
+
+  const handleSubmit = () => {
+
+  }
 
   return (
     <div>
@@ -86,23 +116,44 @@ const Order = () => {
                     <div key={index} className="cart-item">
                       <Link to={`/products/${item.product}`}>
                         <img src={item.img} alt="" />
-                        <h3>{item.title}</h3>
                       </Link>
+                      <p> {item.title} </p>
+                      <p> Quantity: {item.qty} </p>
+                      <p> Subtotal: ${item.qty * item.price} </p>
                     </div>
                   ))
                 }
               </>
-            )
-          }
-
-
-
-
+            )}
 
         </div>
-        <div className="order-summary">
-          ssss
-        </div>
+        {cart.cartItems.length > 0 && (
+          <div className="order-summary">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Products</td>
+                  <td>${cart.itemsPrice}</td>
+                </tr>
+                <tr>
+                  <td>Tax</td>
+                  <td>${cart.taxPrice}</td>
+                </tr>
+                <tr>
+                  <td>Shipping</td>
+                  <td>${cart.shippingPrice}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>${cart.totalPrice}</td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="submit" onClick={handleSubmit}>
+              Place Order
+            </button>
+          </div>
+        )}
       </CartStyled>
 
     </div>

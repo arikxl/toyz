@@ -18,7 +18,7 @@ const Cart = () => {
     const { cartItems } = cart;
 
     const total = cartItems.reduce((total, item) =>
-        total + item.qty * item.price, 0).toLocaleString();
+    total + item.qty * item.price, 0).toLocaleString();
 
     useEffect(() => {
         if (id) {

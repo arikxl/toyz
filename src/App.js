@@ -11,6 +11,8 @@ import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
 import Shipping from './pages/Shipping';
 import Payment from './pages/Payment';
+import CheckOut from './pages/CheckOutPage/CheckOut';
+import NotFound from './pages/NotFound';
 import Order from './pages/OrderPage/Order';
 
 function App() {
@@ -27,7 +29,9 @@ function App() {
           <Route path="/profile" element={<UserProfile/>} />
           <Route path="/shipping" element={<Shipping/>} />
           <Route path="/payment" element={<Payment/>} />
+          <Route path="/checkout" element={<CheckOut/>} />
           <Route path="/order" element={<Order/>} />
+          <Route path="*" element={<NotFound/>} />
       </Routes>
       <AppFooter />
     </BrowserRouter>

@@ -25,7 +25,7 @@ const Payment = () => {
       return;
     }; 
     dispatch(savePaymentMethod(paymentMethod));
-    navigate('/order');
+    navigate('/checkout');
   };
 
 

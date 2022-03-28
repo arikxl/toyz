@@ -30,7 +30,7 @@ function App() {
           <Route path="/shipping" element={<Shipping/>} />
           <Route path="/payment" element={<Payment/>} />
           <Route path="/checkout" element={<CheckOut/>} />
-          <Route path="/order" element={<Order/>} />
+          <Route path="/order/:id" element={<Order/>} />
           <Route path="*" element={<NotFound/>} />
       </Routes>
       <AppFooter />

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
 import moment from 'moment';
 import Loader from '../components/Loaders/Loader/Loader.jsx'
+import Error from '../components/Loaders/Error';
 
 
 
@@ -14,7 +15,7 @@ const UserProfile = () => {
 
 
     const userDetails = useSelector((state) => state.userDetails);
-    const { error, loading, user } = userDetails;
+    const { error, user } = userDetails;
 
     const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
     const { loading: updateLoading } = userProfileUpdate;
@@ -73,6 +74,7 @@ const UserProfile = () => {
                 <button>update profile</button>
             </form>
 
+            <Error message={error} />
 
         </>
     )

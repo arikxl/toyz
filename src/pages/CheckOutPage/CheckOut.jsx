@@ -5,6 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Error from '../../components/Loaders/Error';
 import { addDecimals } from '../../utils/utils';
+import { useEffect } from 'react';
+import { ORDER_CREATE_RESET } from '../../redux/constants/orderConstants';
+import { createOrder } from '../../redux/actions/orderActions';
+
 
 
 const OrderStyled = styled.div`
@@ -62,9 +66,10 @@ const CheckOut = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin).userInfo;
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
 
   cart.itemsPrice = addDecimals(
     cart?.cartItems?.reduce((total, item) =>
@@ -74,19 +79,33 @@ const CheckOut = () => {
   cart.shippingPrice = addDecimals(cart.itemsPrice > 150 ? 0 : 20);
   cart.taxPrice = addDecimals(+((0.17 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = (
-    +(cart.itemsPrice) + 
+    +(cart.itemsPrice) +
     +(cart.taxPrice) +
     +(cart.shippingPrice)
   ).toFixed(2);
 
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET })
+    }
+
+  }, [dispatch, success, order, navigate])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (paymentMethod !== 'PayPal') {
-    //   alert('Please choose your payment method')
-    //   return;
-    // }; 
-    // dispatch(savePaymentMethod(paymentMethod));
-    navigate('/order');
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
   }
 
   return (
@@ -163,7 +182,9 @@ const CheckOut = () => {
           </div>
         )}
       </CartStyled>
-
+      {error && (
+        <Error message={error} />
+      )}
     </div>
   )
 }

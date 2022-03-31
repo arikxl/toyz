@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
 import moment from 'moment';
-import Loader from '../components/Loaders/Loader/Loader.jsx'
+import { useDispatch, useSelector } from 'react-redux';
+
 import Error from '../components/Loaders/Error';
-
-
+import Loader from '../components/Loaders/Loader/Loader.jsx'
+import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
 
 
 const UserProfile = () => {
 
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin).userInfo;
-
 
     const userDetails = useSelector((state) => state.userDetails);
     const { error, user } = userDetails;
@@ -38,16 +36,19 @@ const UserProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(password !== confirmPassword) {
+        if (password !== confirmPassword) {
             alert('Passwords do not match');
         } else {
-            alert('Passwords match');
             dispatch(updateUserProfile({
-                id: user._id,
+                id: userLogin._id,
                 name,
-                email, 
+                email,
                 password
             }))
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
         }
     }
 
@@ -59,25 +60,22 @@ const UserProfile = () => {
             {updateLoading && <Loader />}
             <form onSubmit={handleSubmit} >
                 <input type="text" placeholder='UserName' name="name" required
-                    value={name} onChange={(e) => setName(e.target.value)} />
+                    value={name ? name : ''} onChange={(e) => setName(e.target.value)} />
                 <br />
                 <input type="email" placeholder='Email' name="email" required
-                    value={email} onChange={(e) => setEmail(e.target.value)} />
+                    value={email ? email : ''} onChange={(e) => setEmail(e.target.value)} />
                 <br />
                 <input type="password" placeholder="Password" name="password"
-                    value={password} onChange={(e) => setPassword(e.target.value)} />
+                    value={password ? password : ''} onChange={(e) => setPassword(e.target.value)} />
                 <br />
                 <input type="password" placeholder="confirm Password" name="password"
-                    value={confirmPassword} required
+                    value={confirmPassword ? confirmPassword : ''} required
                     onChange={(e) => setConfirmPassword(e.target.value)} />
                 <br />
                 <button>update profile</button>
             </form>
-
-            <Error message={error} />
-
         </>
-    )
-}
+    );
+};
 
 export default UserProfile

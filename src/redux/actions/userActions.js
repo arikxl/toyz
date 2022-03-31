@@ -120,13 +120,11 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 // UPDATE PROFILE
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
-    console.log('user:', user)
     try {
         dispatch({type : USER_UPDATE_PROFILE_REQUEST});
         const {
             userLogin : { userInfo },
         } = getState();
-        console.log('userInfo:', userInfo)
 
         const config = {
             headers : {
@@ -146,11 +144,11 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         : error.message;
 
         if(message === "Not authorized, no token") {
-            dispatch(logout())
+            dispatch(logout());
         }
         dispatch({
             type: USER_UPDATE_PROFILE_FAIL,
             payload : message
         });
     };
-}
+};

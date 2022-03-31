@@ -54,7 +54,7 @@ const AppHeader = () => {
                 {user ? (
                     <UserStyled>
                         <Link to='/profile'>
-                            <img src={`https://avatars.dicebear.com/api/bottts/${user.name}.svg`} alt="" />
+                            <img src={`https://avatars.dicebear.com/api/bottts/${user._id}.svg`} alt="" />
                         </Link>
                         <h3>{user.name}</h3>
                         <button onClick={handleLogout}>logout</button>

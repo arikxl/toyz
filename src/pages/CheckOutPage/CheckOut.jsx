@@ -78,6 +78,7 @@ const CheckOut = () => {
 
   cart.shippingPrice = addDecimals(cart.itemsPrice > 150 ? 0 : 20);
   cart.taxPrice = addDecimals(+((0.17 * cart.itemsPrice).toFixed(2)));
+  
   cart.totalPrice = (
     +(cart.itemsPrice) +
     +(cart.taxPrice) +

@@ -20,7 +20,7 @@ const Payment = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (paymentMethod !== 'PayPal') {
+    if (paymentMethod !== 'PayPal'&& paymentMethod !== 'Cash') {
       alert('Please choose your payment method')
       return;
     }; 
@@ -37,6 +37,9 @@ const Payment = () => {
           <input type="radio" value='PayPal'
           onChange={(e) => setPaymentMethod(e.target.value)}/>
           <label>PayPal</label>
+          <input type="radio" value='Cash'
+          onChange={(e) => setPaymentMethod(e.target.value)}/>
+          <label>Cash</label>
         </div>
         <button type="submit" className="">Continue</button>
       </form>

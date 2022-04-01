@@ -76,9 +76,9 @@ const CheckOut = () => {
       total + item.qty * item.price, 0) / 1.17
   );
 
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 150 ? 0 : 20);
-  cart.taxPrice = addDecimals(+((0.17 * cart.itemsPrice).toFixed(2)));
-  
+  cart.shippingPrice = addDecimals((cart.itemsPrice > 150 ? 0 : 20) / 1.17);
+  cart.taxPrice =  addDecimals(+((0.17 * (+cart.itemsPrice + +cart.shippingPrice)).toFixed(2)));
+
   cart.totalPrice = (
     +(cart.itemsPrice) +
     +(cart.taxPrice) +
@@ -164,12 +164,12 @@ const CheckOut = () => {
                   <td>${cart.itemsPrice}</td>
                 </tr>
                 <tr>
-                  <td>Tax</td>
-                  <td>${cart.taxPrice}</td>
-                </tr>
-                <tr>
                   <td>Shipping</td>
                   <td>${cart.shippingPrice}</td>
+                </tr>
+                <tr>
+                  <td>Tax</td>
+                  <td>${cart.taxPrice}</td>
                 </tr>
                 <tr>
                   <td>Total</td>

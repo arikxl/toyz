@@ -7,7 +7,6 @@ import moment from 'moment';
 
 const UserOrderList = (props) => {
     const { orders, loading, error } = props;
-    console.log('orders:', orders)
 
     return (
         <div>

@@ -58,6 +58,8 @@ const UserProfile = () => {
             <h3>joined: {moment(userLogin.createdAt).format('DD/MM/YY')}</h3>
             <h3>email: {userLogin.email}</h3>
             {updateLoading && <Loader />}
+
+            <hr />
             <form onSubmit={handleSubmit} >
                 <input type="text" placeholder='UserName' name="name" required
                     value={name ? name : ''} onChange={(e) => setName(e.target.value)} />
@@ -74,6 +76,7 @@ const UserProfile = () => {
                 <br />
                 <button>update profile</button>
             </form>
+            <hr />
         </>
     );
 };

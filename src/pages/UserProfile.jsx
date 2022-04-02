@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Error from '../components/Loaders/Error';
 import Loader from '../components/Loaders/Loader/Loader.jsx'
 import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
+import { userOrderList } from '../redux/actions/orderActions';
+import UserOrderList from '../components/UserOrderList/UserOrderList';
 
 
 const UserProfile = () => {
 
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin).userInfo;
+    const orderList = useSelector((state) => state.orderList);
+    const { error, loading, orders } = orderList;
 
     const userDetails = useSelector((state) => state.userDetails);
-    const { error, user } = userDetails;
+    const { user } = userDetails;
 
     const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
     const { loading: updateLoading } = userProfileUpdate;
@@ -24,8 +27,9 @@ const UserProfile = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     useEffect(() => {
-        dispatch(getUserDetails('profile'))
-    }, [dispatch])
+        dispatch(getUserDetails('profile'));
+        dispatch(userOrderList());
+    }, [dispatch]);
 
     useEffect(() => {
         if (user) {
@@ -55,6 +59,7 @@ const UserProfile = () => {
     return (
         <>
             <div>Shalom {userLogin.name}</div>
+            {userLogin.isAdmin && <p>Admin</p>}
             <h3>joined: {moment(userLogin.createdAt).format('DD/MM/YY')}</h3>
             <h3>email: {userLogin.email}</h3>
             {updateLoading && <Loader />}
@@ -77,6 +82,17 @@ const UserProfile = () => {
                 <button>update profile</button>
             </form>
             <hr />
+
+            <div> orders:
+                {
+                    orders && orders.length > 0 ? (
+                        orders.length
+                    ) : (
+                        '0'
+                    )
+                }
+            </div>
+            <UserOrderList orders={orders} loading={loading} error={error}/>
         </>
     );
 };

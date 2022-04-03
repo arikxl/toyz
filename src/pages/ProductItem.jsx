@@ -61,6 +61,10 @@ const ProductItem = () => {
         navigate(`/cart/${id}?qty=${quantity}`);
     }
 
+    const handelSubmitReview = () => {
+
+    }
+
     return (
         <ProductItemStyled>
             {loading ? (<Loader />)
@@ -103,32 +107,77 @@ const ProductItem = () => {
                         </div>
                     )}
             <hr />
-            <div>
-                <h3>Reviews</h3>
-                {
-                    product.reviews.length === 0 && (
-                        <Error message={'No reviews yet'} />
-                    )
-                }
-                {
-                    product.reviews.map((review) => (
-                        <div key={review._id}>
-                            <p>{review.name}</p>
-                            <Rating rating={review.rating} />
-                            <p>{moment(review.createdAt).calendar()}</p>
-                            <div>
-                                {review.comment}
+            {!loading && !error && (
+
+
+                <div>
+                    <h3>Reviews</h3>
+                    {
+                        product.reviews.length === 0 && (
+                            <Error message={'No reviews yet'} />
+                        )
+                    }
+                    {
+                        product.reviews.map((review) => (
+                            <div key={review._id}>
+                                <p>{review.name}</p>
+                                <Rating value={review.rating} />
+                                <p>{moment(review.createdAt).calendar()}</p>
+                                <div>
+                                    {review.comment}
+                                </div>
                             </div>
-                        </div>
-                    ))
-                }
+                        ))
+                    }
+
+                    <div>
+                        <h6>write a review</h6>
+                        {loadingCreateReview && (<Loader />)}
+                        {errorCreateReview && (<Error message={errorCreateReview} />)}
+
+                        {
+                            userLogin ? (
+                                <form onSubmit={handelSubmitReview}>
+                                    <div>
+                                        <strong>rating</strong>
+                                        <select value={userRating}
+                                            onChange={(e) => setUserRating(e.target.value)}>
+                                            <option value="">Select...</option>
+                                            <option value="1">1- Poor</option>
+                                            <option value="2">2- Fair</option>
+                                            <option value="3">3- Good</option>
+                                            <option value="4">4- Very good</option>
+                                            <option value="5">5 - Excellent</option>
+                                        </select>
+                                        <div>
+                                            <strong>Comment</strong>
+                                            <br />
+                                            <textarea  rows="3"></textarea>
+                                        </div>
+                                        <div>
+                                            <button>
+                                                submit review
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            ) : (
+                                <Link to={'/login'}>
+                                
+                                <h1>login to write a review</h1>
+                            </Link>
+                            )
+                        }
+
+
+                    </div>
 
 
 
 
 
-            </div>
-
+                </div>
+            )}
 
 
 

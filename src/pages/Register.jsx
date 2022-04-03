@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+
 
 import Error from '../components/Loaders/Error';
 import Loader from '../components/Loaders/Loader/Loader';
 import { register } from '../redux/actions/userActions';
+
+const RegisterStyled = styled.main`
+  height:80vh ;
+`;
 
 const Register = () => {
 
@@ -30,7 +36,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <RegisterStyled>
             <Link to={'/'}>
                 <button>🏠</button>
             </Link>
@@ -58,7 +64,7 @@ const Register = () => {
                     I have an account
                 </Link>
             </p>
-        </div>
+        </RegisterStyled>
     );
 };
 

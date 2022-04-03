@@ -14,10 +14,10 @@ import { orderCreateReducer, orderDetailsReducer,
 
 const reducer = combineReducers({
     cart : cartReducer, 
-    userLogin : userLoginReducer, 
     productList : productListReducer,
     productItem : productItemReducer,
     productCreateReview: productCreateReviewReducer,
+    userLogin : userLoginReducer, 
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userProfileUpdate: userUpdateProfileReducer,

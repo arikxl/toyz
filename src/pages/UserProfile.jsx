@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from "styled-components";
+
 
 import Loader from '../components/Loaders/Loader/Loader.jsx'
 import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
 import { userOrderList } from '../redux/actions/orderActions';
 import UserOrderList from '../components/UserOrderList/UserOrderList';
 
+const UserProfileStyled = styled.main`
+  height:80vh ;
+`;
 
 const UserProfile = () => {
 
@@ -57,7 +62,7 @@ const UserProfile = () => {
     }
 
     return (
-        <>
+        <UserProfileStyled>
             <div>Shalom {userLogin.name}</div>
             {userLogin.isAdmin && <p>Admin</p>}
             <h3>joined: {moment(userLogin.createdAt).format('DD/MM/YY')}</h3>
@@ -93,7 +98,7 @@ const UserProfile = () => {
                 }
             </div>
             <UserOrderList orders={orders} loading={loading} error={error}/>
-        </>
+        </UserProfileStyled>
     );
 };
 

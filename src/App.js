@@ -14,7 +14,7 @@ import Payment from './pages/Payment';
 import CheckOut from './pages/CheckOutPage/CheckOut';
 import NotFound from './pages/NotFound';
 import Order from './pages/OrderPage/Order';
-import PrivateRouter from './PrivateRouter';
+// import PrivateRouter from './PrivateRouter';
 
 function App() {
   return (

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+
 
 import Error from '../components/Loaders/Error';
 import Loader from '../components/Loaders/Loader/Loader';
 import { login } from '../redux/actions/userActions';
+
+const LoginStyled = styled.main`
+  height:80vh ;
+`;
 
 const Login = () => {
   window.scrollTo(0, 0);
@@ -29,7 +35,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <LoginStyled>
       <Link to={'/'}>
         <button>🏠</button>
       </Link>
@@ -55,7 +61,7 @@ const Login = () => {
           Create a new account
         </Link>
       </p>
-    </div>
+    </LoginStyled>
   )
 }
 

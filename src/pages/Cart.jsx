@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
-import Error from '../components/Loaders/Error';
+import styled from "styled-components";
 
+
+import Error from '../components/Loaders/Error';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
+
+const CartStyled = styled.main`
+  height:80vh ;
+    .delete-btn {
+        width: 50px;
+        height: 20px;
+        margin-right:10px ;
+    }
+
+    .btn {
+        width: 150px;
+        height: 50px;
+    }
+  img {
+      width: 100px;
+      height: 100px ;
+  }
+`;
 
 const Cart = () => {
     // window.scroll(0, 0);
@@ -18,7 +38,7 @@ const Cart = () => {
     const { cartItems } = cart;
 
     const total = cartItems.reduce((total, item) =>
-    total + item.qty * item.price, 0).toLocaleString();
+        total + item.qty * item.price, 0).toLocaleString();
 
     useEffect(() => {
         if (id) {
@@ -36,7 +56,7 @@ const Cart = () => {
 
     return (
 
-        <>
+        <CartStyled>
             {cartItems.length === 0 ? (
                 <div style={{ background: 'orange' }}>
                     <Error message={'Your Cart Is Empty'} />
@@ -54,8 +74,8 @@ const Cart = () => {
 
                     {cartItems.map((item, index) => (
 
-                        <div className="" key={index} style={{ display: 'flex' }}>
-                            <button
+                        <div key={index} style={{ display: 'flex' }}>
+                            <button className="delete-btn"
                                 onClick={() => HandleRemoveFromCart(item.product)}>
                                 X
                             </button>
@@ -99,19 +119,22 @@ const Cart = () => {
                     <hr />
                     <div className="cart-buttons d-flex align-items-center row">
                         <Link to="/" className="">
-                            <button>Continue To Shopping</button>
+                            <button className="btn">
+                                Continue To Shopping</button>
                         </Link>
                         {total > 0 && (
                             <div >
                                 <Link to="/shipping" className="">
-                                    <button onClick={handleCheckOut}>Checkout</button>
+                                    <button onClick={handleCheckOut}
+                                        className="btn"
+                                    >Checkout</button>
                                 </Link>
                             </div>
                         )}
                     </div>
                 </>
             )}
-        </>
+        </CartStyled>
     );
 };
 

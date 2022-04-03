@@ -11,6 +11,8 @@ import { singleProduct } from '../redux/actions/productActions';
 import Rating from '../components/Rating/Rating';
 
 const ProductItemStyled = styled.section`
+  height:80vh ;
+
     img {
         width: 200px;
         height: 200px;

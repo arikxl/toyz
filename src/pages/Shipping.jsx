@@ -1,10 +1,15 @@
 import React ,  { useState }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+
 
 
 import {saveShippingAddress} from '../redux/actions/cartActions';
 
+const ShippingStyled = styled.main`
+  height:80vh ;
+`;
 
 const Shipping = () => {
 
@@ -26,7 +31,7 @@ const Shipping = () => {
     };
 
     return (
-        <div>
+        <ShippingStyled>
             <form onSubmit={handleSubmit} className="flex column w200">
                 <h6>delivery address</h6>
                 <input type="text" placeholder="Enter delivery address"
@@ -40,7 +45,7 @@ const Shipping = () => {
                     onChange={(e) => setZipcode(e.target.value)} />
                 <button type="submit" className="">Continue</button>
             </form>
-        </div>
+        </ShippingStyled>
     )
 }
 

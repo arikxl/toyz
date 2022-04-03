@@ -9,7 +9,9 @@ import { useEffect } from 'react';
 import { ORDER_CREATE_RESET } from '../../redux/constants/orderConstants';
 import { createOrder } from '../../redux/actions/orderActions';
 
-
+const CheckoutStyled = styled.main`
+  height:80vh ;
+`;
 
 const OrderStyled = styled.div`
   width: 80%;
@@ -110,7 +112,7 @@ const CheckOut = () => {
   }
 
   return (
-    <div>
+    <CheckoutStyled>
       <OrderStyled>
         <div className="order-info">
           <h4>Costumer</h4>
@@ -186,7 +188,7 @@ const CheckOut = () => {
       {error && (
         <Error message={error} />
       )}
-    </div>
+    </CheckoutStyled>
   )
 }
 

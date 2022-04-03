@@ -20,6 +20,8 @@ import { ORDER_PAY_RESET } from '../../redux/constants/orderConstants';
 
 const OrderStyled = styled.div`
   width: 80%;
+  min-height:80vh ;
+
   display: flex ;
   flex-direction: column ;
   margin: 10px auto;

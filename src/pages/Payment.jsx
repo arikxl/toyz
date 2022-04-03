@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+
+
 import { savePaymentMethod } from '../redux/actions/cartActions';
+
+const PaymentStyled = styled.main`
+  height:80vh ;
+`;
 
 
 const Payment = () => {
@@ -30,20 +37,17 @@ const Payment = () => {
 
 
   return (
-    <div>
+    <PaymentStyled>
       <form onSubmit={handleSubmit} className="flex column w200">
         <h6>select payment method</h6>
         <div>
           <input type="radio" value='PayPal'
           onChange={(e) => setPaymentMethod(e.target.value)}/>
-          <label>PayPal</label>
-          <input type="radio" value='Cash'
-          onChange={(e) => setPaymentMethod(e.target.value)}/>
-          <label>Cash</label>
+          <label>PayPal or credit card</label>
         </div>
         <button type="submit" className="">Continue</button>
       </form>
-    </div>
+    </PaymentStyled>
   )
 }
 

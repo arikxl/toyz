@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import Error from '../components/Loaders/Error';
 import Loader from '../components/Loaders/Loader/Loader';
-import { singleProduct } from '../redux/actions/productActions';
+import { createProductReview, singleProduct } from '../redux/actions/productActions';
 import Rating from '../components/Rating/Rating';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productsConstants';
 
@@ -42,17 +42,15 @@ const ProductItem = () => {
 
     const [quantity, setQuantity] = useState(1);
     const [userRating, setUserRating] = useState(0);
-    const [comment, setComment] = useState('');
+    const [userComment, setUserComment] = useState('');
 
     useEffect(() => {
         if (successCreateReview) {
             alert('Review created successfully');
             setUserRating(0);
-            setComment('');
+            setUserComment('');
             dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
         }
-
-
         dispatch(singleProduct(id))
     }, [dispatch, id, successCreateReview])
 
@@ -61,8 +59,11 @@ const ProductItem = () => {
         navigate(`/cart/${id}?qty=${quantity}`);
     }
 
-    const handelSubmitReview = () => {
-
+    const handelSubmitReview = (e) => {
+        e.preventDefault();
+        dispatch(createProductReview(id, {
+            userRating, userComment
+        }))
     }
 
     return (
@@ -80,9 +81,9 @@ const ProductItem = () => {
                             {stock > 0 ? (
                                 <p>stock:{stock}</p>) : (<p>OUT OF STOCK</p>)
                             }
-                            <Rating rating={rating} reviewsCount={reviewsCount} />
-
-
+                            <h4  >
+                                {(rating)?.toFixed(1)}({reviewsCount})
+                            </h4>
                             {stock > 0 && (
                                 <div >
                                     <h6>Quantity</h6>
@@ -121,7 +122,7 @@ const ProductItem = () => {
                         product.reviews.map((review) => (
                             <div key={review._id}>
                                 <p>{review.name}</p>
-                                <Rating value={review.rating} />
+                                <Rating value={review.userRating} text={review.userComment} />
                                 <p>{moment(review.createdAt).calendar()}</p>
                                 <div>
                                     {review.comment}
@@ -141,7 +142,7 @@ const ProductItem = () => {
                                     <div>
                                         <strong>rating</strong>
                                         <select value={userRating}
-                                            onChange={(e) => setUserRating(e.target.value)}>
+                                            onChange={(e) => setUserRating(Number(e.target.value))}>
                                             <option value="">Select...</option>
                                             <option value="1">1- Poor</option>
                                             <option value="2">2- Fair</option>
@@ -152,20 +153,25 @@ const ProductItem = () => {
                                         <div>
                                             <strong>Comment</strong>
                                             <br />
-                                            <textarea  rows="3"></textarea>
+                                            <textarea value={userComment} rows="3"
+                                                onChange={(e) => setUserComment(e.target.value)}>
+
+                                            </textarea>
                                         </div>
                                         <div>
-                                            <button>
+                                            <button disabled={loadingCreateReview}>
                                                 submit review
                                             </button>
                                         </div>
                                     </div>
                                 </form>
                             ) : (
-                                <Link to={'/login'}>
-                                
-                                <h1>login to write a review</h1>
-                            </Link>
+                                <h2>
+                                    <Link to={'/login'}>
+                                        login
+                                    </Link>
+                                    &nbsp;to write a review
+                                </h2>
                             )
                         }
 

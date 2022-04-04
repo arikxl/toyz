@@ -8,7 +8,35 @@ import styled from "styled-components";
 import {saveShippingAddress} from '../redux/actions/cartActions';
 
 const ShippingStyled = styled.main`
-  height:80vh ;
+    height:80vh ;
+    width: 400px ;
+    margin: 0 auto ;
+    display: flex ;
+    flex-direction: column ;
+    align-items: center ;
+  form {
+    display: flex ;
+    flex-direction: column ;
+    justify-content: center ;
+    align-items: center ;
+    margin: 20px;
+
+    input {
+      padding: 5px ;
+      border: 1px solid hotpink ;
+      margin: 10px ;
+      width: 100% ;
+    }
+
+    button {
+      background-color: hotpink ;
+      font-size: 16px ;
+      padding: 5px 10px;
+      color: white ;
+      border: none ;
+      width: 100% ;
+    }
+  }
 `;
 
 const Shipping = () => {
@@ -33,7 +61,7 @@ const Shipping = () => {
     return (
         <ShippingStyled>
             <form onSubmit={handleSubmit} className="flex column w200">
-                <h6>delivery address</h6>
+                <h3>delivery address</h3>
                 <input type="text" placeholder="Enter delivery address"
                     value={address} required
                     onChange={(e) => setAddress(e.target.value)} />
@@ -41,7 +69,7 @@ const Shipping = () => {
                     value={city} required
                     onChange={(e) => setCity(e.target.value)} />
                 <input type="number" placeholder="Enter zipcode"
-                    value={zipcode} required
+                    value={zipcode} required min={10000}
                     onChange={(e) => setZipcode(e.target.value)} />
                 <button type="submit" className="">Continue</button>
             </form>

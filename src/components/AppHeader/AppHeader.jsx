@@ -17,6 +17,13 @@ const HeaderStyled = styled.header`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        button {
+            background-color: white ;
+            font-size: 16px ;
+            padding:5px 15px ;
+            color: hotpink ;
+            border: none ;
+        }
     };
 `;
 

@@ -15,7 +15,6 @@ const ProductListStyled = styled.section`
     .item {
         margin: 20px 0;
         width: 200px ;
-        background-color: red ;
     }
     
 `;

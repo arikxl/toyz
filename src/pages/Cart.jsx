@@ -10,6 +10,8 @@ import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
 const CartStyled = styled.main`
   height:80vh ;
+  width: 80% ;
+  margin: 20px auto ;
     .delete-btn {
         width: 50px;
         height: 20px;

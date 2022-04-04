@@ -2,6 +2,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  font-family:cursive;
 }
 
 .flex {
@@ -14,4 +16,8 @@
 
 .w200 {
   width: 200px;
+}
+
+button, a {
+  cursor: pointer;
 }

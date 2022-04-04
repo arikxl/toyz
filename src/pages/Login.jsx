@@ -10,6 +10,41 @@ import { login } from '../redux/actions/userActions';
 
 const LoginStyled = styled.main`
   height:80vh ;
+  width: 400px ;
+  margin: 0 auto ;
+  display: flex ;
+  flex-direction: column ;
+  align-items: center ;
+  form {
+    display: flex ;
+    flex-direction: column ;
+    justify-content: center ;
+
+    input {
+      padding: 5px ;
+      border: 1px solid hotpink ;
+    }
+
+    button {
+      background-color: hotpink ;
+      font-size: 16px ;
+      padding: 5px ;
+      color: white ;
+      border: none ;
+    }
+  }
+  button {
+    margin-bottom: 20px ;
+  }
+
+  button:first-child{
+    margin-top: 20px ;
+    padding:  5px;
+    border: 3px double hotpink ;
+    background-color: transparent ;
+    border-radius: 5px ;
+  }
+
 `;
 
 const Login = () => {

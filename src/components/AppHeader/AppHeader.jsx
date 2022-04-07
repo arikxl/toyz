@@ -1,6 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { logout } from '../../redux/actions/userActions';
@@ -38,18 +39,32 @@ const UserStyled = styled.section`
 
 
 const AppHeader = () => {
+    const [searchWord, setSearchWord] = useState('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
     const user = useSelector((state) => state.userLogin).userInfo;
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
+        e.preventDefault();
         // eslint-disable-next-line no-restricted-globals
         if (confirm('Are you sure you want to log out?')) {
             dispatch(logout());
         } else return;
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchWord.trim()) {
+            navigate(`/search/${searchWord}`);
+        } else {
+            navigate(`/`);
+
+        }
     }
 
     return (
@@ -72,6 +87,16 @@ const AppHeader = () => {
                         <button>login</button>
                     </Link>
                 )}
+                <div>
+                    <form onSubmit={handleSearch}>
+                        <input type="text" placeholder='Search...'
+                            onChange={(e) => setSearchWord(e.target.value)}
+                            />
+                        <button type='submit'>
+                            🔎
+                        </button>
+                    </form>
+                </div>
 
                 <Link to={'/cart'}>
                     bag: {cartItems.length}

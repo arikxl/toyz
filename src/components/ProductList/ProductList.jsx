@@ -37,9 +37,9 @@ const ProductList = () => {
                 : error ? (<Error message={error} />)
                     : (
                         <>
-                            {products.map((product, index) => (
-                                <div className='item'>
-                                    <Link to={`/products/${product._id}`} key={index}>
+                            {products.map((product) => (
+                                <div className='item' key={product._id}>
+                                    <Link to={`/products/${product._id}`} >
                                         <h1> {product.title}</h1>
                                     </Link>
                                 </div>

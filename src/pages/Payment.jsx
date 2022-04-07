@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
-
 import { savePaymentMethod } from '../redux/actions/cartActions';
 
 const PaymentStyled = styled.main`

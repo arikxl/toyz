@@ -22,6 +22,7 @@ function App() {
       <AppHeader />
       <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/search/:searchWord" element={<Home />}/>
           <Route path="/products/:id" element={<ProductItem/>} />
           <Route path="/cart/:id" element={<Cart/>} />
           <Route path="/cart" element={<Cart/>} />

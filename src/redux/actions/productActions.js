@@ -10,11 +10,12 @@ import { PRODUCT_CREATE_REVIEW_FAIL, PRODUCT_CREATE_REVIEW_REQUEST, PRODUCT_CREA
 import { logout } from './userActions';
 
 // PRODUCT LIST
-export const listProduct =(searchWord=" ") => async (dispatch) => {
+export const listProduct =(searchWord=" ", pageNumber =" ") => async (dispatch) => {
     try {
         dispatch({type : PRODUCT_LIST_REQUEST});
         
-        const {data} = await axios.get(`/products?searchWord=${searchWord}`);
+        const {data} = await axios.get(
+            `/products?searchWord=${searchWord}&pageNumber=${pageNumber}`);
         dispatch({type : PRODUCT_LIST_SUCCESS, payload : data});
     } catch (error) {
             dispatch({

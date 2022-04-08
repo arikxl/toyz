@@ -31,6 +31,7 @@ const ProductList = (props) => {
 
     const productsFromStore = useSelector((state) => state.productList)
     const { error, loading, products } = productsFromStore;
+    console.log('products:', products)
 
     return (
         <ProductListStyled>

@@ -15,11 +15,12 @@ const HomeStyled = styled.main`
 
 const Home = () => {
 
-  const searchWord = useParams().searchWord;
+  const searchWord = useParams().searchWord || '';
+  const pageNumber = useParams().pageNumber;
 
   return (
     <HomeStyled>
-      <ProductList searchWord={searchWord}/>
+      <ProductList searchWord={searchWord} pageNumber={pageNumber}/>
     </HomeStyled>
   );
 };

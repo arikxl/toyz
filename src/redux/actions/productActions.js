@@ -14,8 +14,8 @@ export const listProduct =(searchWord=" ", pageNumber =" ") => async (dispatch) 
         dispatch({type : PRODUCT_LIST_REQUEST});
         
         const {data} = await axios.get(
-            `/products?searchWord=${searchWord}`);
-        dispatch({type : PRODUCT_LIST_SUCCESS, payload : data});
+            `/products?searchWord=${searchWord}&pageNumber=${pageNumber}`);
+            dispatch({type : PRODUCT_LIST_SUCCESS, payload : data});
     } catch (error) {
             dispatch({
                 type: PRODUCT_LIST_FAIL,

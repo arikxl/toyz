@@ -21,17 +21,19 @@ const ProductListStyled = styled.section`
 
 
 const ProductList = (props) => {
+console.log('props:', props)
 
     const dispatch = useDispatch();
-    const {searchWord} = props;
+    const {searchWord, pageNumber} = props;
 
     useEffect(() => {
-        dispatch(listProduct(searchWord));
-    }, [dispatch, searchWord]);
+        dispatch(listProduct(searchWord, pageNumber));
+    }, [dispatch, searchWord, pageNumber]);
 
     const productsFromStore = useSelector((state) => state.productList)
+    console.log('productsFromStore:', productsFromStore)
     const { error, loading, products } = productsFromStore;
-    console.log('products:', products)
+    // console.log('products:', products)
 
     return (
         <ProductListStyled>

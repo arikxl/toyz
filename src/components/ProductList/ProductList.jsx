@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Error from '../Loaders/Error';
 import Loader from '../Loaders/Loader/Loader';
 import { listProduct } from '../../redux/actions/productActions';
+import { Pagination } from './Pagination';
 
 const ProductListStyled = styled.section`
     width: 80%;
@@ -21,37 +22,37 @@ const ProductListStyled = styled.section`
 
 
 const ProductList = (props) => {
-console.log('props:', props)
 
     const dispatch = useDispatch();
-    const {searchWord, pageNumber} = props;
+    const { searchWord, pageNumber } = props;
 
     useEffect(() => {
         dispatch(listProduct(searchWord, pageNumber));
     }, [dispatch, searchWord, pageNumber]);
 
     const productsFromStore = useSelector((state) => state.productList)
-    console.log('productsFromStore:', productsFromStore)
-    const { error, loading, products } = productsFromStore;
-    // console.log('products:', products)
+    const { error, loading, products, page, pages } = productsFromStore;
 
     return (
-        <ProductListStyled>
-            {loading ? (<div style={{ position: 'relative' }}><Loader /></div>)
-                : error ? (<Error message={error} />)
-                    : (
-                        <>
-                            {products.map((product) => (
-                                <div className='item' key={product._id}>
-                                    <Link to={`/products/${product._id}`} >
-                                        <h1> {product.title}</h1>
-                                    </Link>
-                                </div>
-                            ))}
-                        </>
-                    )
-            }
-        </ProductListStyled>
+        <>
+            <ProductListStyled>
+                {loading ? (<div style={{ position: 'relative' }}><Loader /></div>)
+                    : error ? (<Error message={error} />)
+                        : (
+                            <>
+                                {products.map((product) => (
+                                    <div className='item' key={product._id}>
+                                        <Link to={`/products/${product._id}`} >
+                                            <h1> {product.title}</h1>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </>
+                        )
+                }
+            </ProductListStyled>
+            <Pagination page={page} pages={pages} searchWord={searchWord ? searchWord : ''}/>
+        </>
     );
 };
 

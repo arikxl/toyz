@@ -21,3 +21,20 @@
 button, a {
   cursor: pointer;
 }
+
+
+.pagination{
+  margin-top: 200px;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+.pagination a.active{
+  margin:0 auto;
+  color: hotpink;
+}
+
+.active {
+  color: hotpink;
+  border: 1px solid hotpink;
+}

@@ -17,7 +17,6 @@ const Home = () => {
 
   const searchWord = useParams().searchWord;
 
-
   return (
     <HomeStyled>
       <ProductList searchWord={searchWord}/>

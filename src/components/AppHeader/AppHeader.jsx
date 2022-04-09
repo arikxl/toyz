@@ -44,15 +44,13 @@ const AppHeader = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
     const user = useSelector((state) => state.userLogin).userInfo;
 
     const handleLogout = (e) => {
         e.preventDefault();
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm('Are you sure you want to log out?')) {
+        if (window.confirm('Are you sure you want to log out?')) {
             dispatch(logout());
         } else return;
     }
@@ -63,9 +61,8 @@ const AppHeader = () => {
             navigate(`/search/${searchWord}`);
         } else {
             navigate(`/`);
-
-        }
-    }
+        };
+    };
 
     return (
         <HeaderStyled>
@@ -87,9 +84,10 @@ const AppHeader = () => {
                         <button>login</button>
                     </Link>
                 )}
+
                 <div>
                     <form onSubmit={handleSearch}>
-                        <input type="text" placeholder='Search...'
+                        <input type="search" placeholder='Search...'
                             onChange={(e) => setSearchWord(e.target.value)}
                             />
                         <button type='submit'>

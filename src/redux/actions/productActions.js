@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-import { PRODUCT_CREATE_REVIEW_FAIL, PRODUCT_CREATE_REVIEW_REQUEST, PRODUCT_CREATE_REVIEW_SUCCESS, PRODUCT_ITEM_FAIL,
-    PRODUCT_ITEM_REQUEST,
-    PRODUCT_ITEM_SUCCESS,
-    PRODUCT_LIST_FAIL,
-    PRODUCT_LIST_REQUEST,
-    PRODUCT_LIST_SUCCESS 
+import { PRODUCT_CREATE_REVIEW_FAIL, PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS, PRODUCT_ITEM_FAIL,
+    PRODUCT_ITEM_REQUEST, PRODUCT_ITEM_SUCCESS,
+    PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST,
+    PRODUCT_LIST_SUCCESS,
 } from "../constants/productsConstants"
 import { logout } from './userActions';
 
@@ -15,7 +14,7 @@ export const listProduct =(searchWord=" ", pageNumber =" ") => async (dispatch) 
         dispatch({type : PRODUCT_LIST_REQUEST});
         
         const {data} = await axios.get(
-            `/products?searchWord=${searchWord}&pageNumber=${pageNumber}`);
+            `/products?searchWord=${searchWord}`);
         dispatch({type : PRODUCT_LIST_SUCCESS, payload : data});
     } catch (error) {
             dispatch({

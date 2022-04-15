@@ -64,7 +64,12 @@ const UserProfile = () => {
     return (
         <UserProfileStyled>
             <div>Shalom {userLogin.name}</div>
-            {userLogin.isAdmin && <p>Admin</p>}
+
+            {userLogin.isAdmin &&
+                <a className="" href="http://localhost:4000/login">
+                    <p>go to Admin dashboard</p>
+                </a>
+            }
             <h3>joined: {moment(userLogin.createdAt).format('DD/MM/YY')}</h3>
             <h3>email: {userLogin.email}</h3>
             {updateLoading && <Loader />}
@@ -97,7 +102,7 @@ const UserProfile = () => {
                     )
                 }
             </div>
-            <UserOrderList orders={orders} loading={loading} error={error}/>
+            <UserOrderList orders={orders} loading={loading} error={error} />
         </UserProfileStyled>
     );
 };

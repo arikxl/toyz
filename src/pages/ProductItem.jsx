@@ -84,22 +84,37 @@ const ProductItem = () => {
                             <h4  >
                                 {(rating)?.toFixed(1)}({reviewsCount})
                             </h4>
-                            {stock > 0 && (
-                                <div >
-                                    <h6>Quantity</h6>
-                                    <select value={quantity}
-                                        onChange={(e) => setQuantity(e.target.value)}>
-                                        {[...Array(stock).keys()].map((index) => (
-                                            <option key={index} value={index + 1}>
-                                                {index + 1}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <button onClick={handleAddToCart}>
-                                        add2cart
-                                    </button>
-                                </div>
-                            )}
+                            {
+                                userLogin ? (
+                                    stock > 0 && (
+                                        <div >
+                                            <h6>Quantity</h6>
+                                            <select value={quantity}
+                                                onChange={(e) => setQuantity(e.target.value)}>
+                                                {[...Array(stock).keys()].map((index) => (
+                                                    <option key={index} value={index + 1}>
+                                                        {index + 1}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <button onClick={handleAddToCart}>
+                                                add2cart
+                                            </button>
+                                        </div>
+                                    )
+                                ) 
+                                : 
+                                (
+                                    <h2>
+                                    <Link to={'/login'}>
+                                        login
+                                    </Link>
+                                    &nbsp;to start shopping
+                                </h2>
+                                )
+                            }
+                            
+
                             <img src={img} alt="" />
                             <br />
                             <Link to={'/'}>
